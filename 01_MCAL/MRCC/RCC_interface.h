@@ -16,6 +16,7 @@ typedef enum{
 	GPIO_A,
 	GPIO_B,
 	GPIO_C,
+	UART,
    // for each driver created ,you must add it here
 }Per_Sel;
 
