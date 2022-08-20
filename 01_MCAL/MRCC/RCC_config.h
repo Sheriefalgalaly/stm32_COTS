@@ -26,11 +26,8 @@
 
 /*******      ******/
 
-/**** PLL selection ***/
-/*f(VCO clock) = f(PLL clock input) × (PLLN / PLLM)
-• f(PLL general clock output) = f(VCO clock) / PLLP*/
 
-#define PLLN   400   /*192 ≤ PLLN ≤ 432*/
-#define PLLM   8    /*2 ≤ PLLM ≤ 63*/
+#define PLLN   200   /*192 ≤ PLLN ≤ 432*/
+#define PLLM   25    /*2 ≤ PLLM ≤ 63*/
 #define PLLP   2    /* 2 - 4 -6 -8 */
 #endif

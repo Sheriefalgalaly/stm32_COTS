@@ -22,6 +22,8 @@ typedef enum{
 
 void RCC_voidSysClkInit(void);
 
+void RCC_voidSelectPLLFreq(u32 Freq);
+
 void RCC_voidEnablePerClk( u8 Per);
 
 void RCC_voidDisablePerClk(Per_Sel Per);

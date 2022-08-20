@@ -7,54 +7,71 @@
 #ifndef  RCC_PRIVATE_H
 #define  RCC_PRIVATE_H
 
-#define    RCC_BASE_ADD      (u32)(0x40023800 )
 
-#define    RCC_CR            *((volatile u32*)(RCC_BASE_ADD +0x00))
 
-    #define HSE_ON     16
-    #define HSE_BYP    18
-    #define HSERDY     17
-    #define HSION      0
-    #define PLLON      25
-#define    RCC_PLLCFGR       *((volatile u32*)(RCC_BASE_ADD +0x04))
+typedef struct {
 
-#define    RCC_CFGR          *((volatile u32*)(RCC_BASE_ADD +0x08))
-       #define SW0     0
-       #define SW1     1
-#define    RCC_CIR           *((volatile u32*)(RCC_BASE_ADD +0x0c))
+u32	   CR             ;
+u32	   PLLCFGR        ;
+u32	   CFGR           ;
+u32	   CIR            ;
+u32    AHB1RSTR       ;
+u32    AHB2RSTR       ;
+u32    reserved1      ;
+u32	   reserved2      ;
+u32    APB1RSTR       ;
+u32    APB2RSTR       ;
+u32    reserved3      ;
+u32	   reserved4      ;
+u32	   AHB1ENR        ;
+u32    AHB2ENR        ;
+u32    APB2RSTR       ;
+u32    reserved5      ;
+u32	   reserved6      ;
+u32    APB1ENR        ;
+u32    APB2ENR        ;
+u32    APB2RSTR       ;
+u32    reserved7      ;
+u32	   reserved8      ;
+u32    AHB1LPENR      ;
+u32    AHB2LPENR      ;
+u32    APB2RSTR       ;
+u32    reserved9      ;
+u32	   reserved10     ;
+u32    APB1LPENR      ;
+u32    APB2LPENR      ;
+u32    APB2RSTR       ;
+u32    reserved11     ;
+u32	   reserved12     ;
+u32    BDCR           ;
+u32    CSR            ;
+u32    APB2RSTR       ;
+u32    reserved13     ;
+u32	   reserved14     ;
+u32    SSCGR          ;
+u32    PLLI2SCFGR     ;
+u32    DCKCFGR        ;
 
-#define    RCC_AHB1RSTR      *((volatile u32*)(RCC_BASE_ADD +0x10))
 
-#define    RCC_AHB2RSTR      *((volatile u32*)(RCC_BASE_ADD +0x14))
+}RCC_t;
 
-#define    RCC_APB1RSTR      *((volatile u32*)(RCC_BASE_ADD +0x20))
 
-#define    RCC_APB2RSTR      *((volatile u32*)(RCC_BASE_ADD +0x24))
+#define    RCC_BASE_ADD             0x40023800
+#define    RCC               ((volatile RCC_t*)RCC_BASE_ADD)
 
-#define    RCC_AHB1ENR       *((volatile u32*)(RCC_BASE_ADD +0x30))
 
-#define    RCC_AHB2ENR       *((volatile u32*)(RCC_BASE_ADD +0x34))
+   /*RCC-CR*/
 
-#define    RCC_APB1ENR       *((volatile u32*)(RCC_BASE_ADD +0x40))
+#define HSE_ON     16
+#define HSE_BYP    18
+#define HSION      0
+#define PLLON      25
+#define CSSON      19
+#define PLLON      24
 
-#define    RCC_APB2ENR       *((volatile u32*)(RCC_BASE_ADD +0x44))
+   #define SW0     0
+   #define SW1     1
 
-#define    RCC_AHB1LPENR     *((volatile u32*)(RCC_BASE_ADD +0x50))
 
-#define    RCC_AHB2LPENR     *((volatile u32*)(RCC_BASE_ADD +0x54))
-
-#define    RCC_APB1LPENR     *((volatile u32*)(RCC_BASE_ADD +0x60))
-
-#define    RCC_APB2LPENR     *((volatile u32*)(RCC_BASE_ADD +0x64))
-
-#define    RCC_BDCR          *((volatile u32*)(RCC_BASE_ADD +0x70))
-
-#define    RCC_CSR           *((volatile u32*)(RCC_BASE_ADD +0x74))
-
-#define    RCC_SSCGR         *((volatile u32*)(RCC_BASE_ADD +0x80))
-
-#define    RCC_PLLI2SCFGR    *((volatile u32*)(RCC_BASE_ADD +0x84))
-
-#define    RCC_DCKCFGR       *((volatile u32*)(RCC_BASE_ADD +0x8c))
 #endif
 

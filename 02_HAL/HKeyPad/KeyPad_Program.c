@@ -48,7 +48,7 @@ u8 KeyPad_voidRead(KeyPad_t* key)
     			read_value |= GPIO_PINRead(*(key->PortRaw+Local_u8Raw),*(key->PinRaw+Local_u8Raw))<<Local_u8Raw;
     		}
 
-        if (read_value != 7 )
+        if (read_value != 7 )  // note : here input is pull up 
         {
            read_value_key=KEYPAD[HKeyPad_Pvoidvalueof_input(read_value)][Local_u8ColumnHigh];                                 //if button pressed return value and out of function
            return read_value_key;
