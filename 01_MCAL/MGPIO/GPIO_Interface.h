@@ -1,8 +1,8 @@
 #ifndef  GPIO_INTERFACE_H
 #define  GPIO_INTERFACE_H
 
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "../../00_LIB/STD_TYPES.h"
+#include "../../00_LIB/BIT_MATH.h"
 #include "GPIO_Config.h"
 #include "GPIO_Private.h"
 
@@ -36,8 +36,8 @@ void GPIO_PINWrite_High(u8 port,u8 PIN); //write in
 void GPIO_PINSWrite_LOW(u8 port,u8 PIN); //write in, multiple pin ORing in same fun
 void GPIO_PINReSET(u8 port,u8 PIN);//used register to access more quick
 void GPIO_PINSET(u8 port,u8 PINS);//used register to access more quick
-u16   GPIO_PINSRead(u8 port ,u16 PINS); //read specific one pin or multiple pins regardless in arrange
-u8  GPIO_PINRead(u8 port ,u8 PIN);    //read input
+u16  GPIO_PINSRead(u8 port ,u16 PINS); //read specific one pin or multiple pins regardless in arrange
+u8   GPIO_PINRead(u8 port ,u8 PIN);    //read input
 
 
 

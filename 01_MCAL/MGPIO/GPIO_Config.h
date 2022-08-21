@@ -1,5 +1,5 @@
-#ifndef  GPIO_INTERFACE_H
-#define  GPIO_INTERFACE_H
+#ifndef  GPIO_CONFIG_H
+#define  GPIO_CONFIG_H
 
 
 /*******************  MODE***************/
