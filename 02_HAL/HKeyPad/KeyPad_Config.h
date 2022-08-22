@@ -9,10 +9,6 @@
 #ifndef KEYPAD_CONFIG_H_
 #define KEYPAD_CONFIG_H_
 
-#include "GPIO_Interface.h"
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
-
 
 #define NumOfColumns   3
 #define NumOfRaws      3

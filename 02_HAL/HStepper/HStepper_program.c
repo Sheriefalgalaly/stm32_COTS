@@ -6,10 +6,10 @@
  */
 
 
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "00_LIB/STD_TYPES.h"
+#include "00_LIB/BIT_MATH.h"
 
-#include "GPIO_Interface.h"
+#include "01_MCAL/MGPIO/GPIO_Interface.h"
 #include "HStepper_interface.h"
 #include "HStepper_private.h"
 void delay_stepper(int i){

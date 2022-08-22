@@ -1,17 +1,16 @@
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
-#include "RCC_interface.h"
-#include "GPIO_Interface.h"
-#include "HSEVSEF_interface.h"
-#include "HStepper_interface.h"
-#include "KeyPad_Interface.h"
-#include "HLED_interface.h"
+#include "00_LIB/STD_TYPES.h"
+#include "00_LIB/BIT_MATH.h"
+#include "01_MCAL/MRCC/RCC_interface.h"
+#include "01_MCAL/MGPIO/GPIO_Interface.h"
+#include "02_HAL/HSev/HSEVSEF_interface.h"
+#include "02_HAL/HStepper/HStepper_interface.h"
+#include "02_HAL/HKeyPad/KeyPad_Interface.h"
+#include "02_HAL/HLED/HLED_interface.h"
 
 int main(void)
 {  //keypad
 	static u8 KeyPad_read=0;
-	u8 Keypad_mul=0;
-	u8 Sev_mul=0;
+
 
 	    u8 Port_Col[4]={PORTA,PORTA,PORTB,PORTC};
 	    u8 Pin_Col[4]={PIN_0,PIN_1,PIN_15,PIN_15};
@@ -90,7 +89,7 @@ int main(void)
 			  HSevSeg_voidSetNum(&ss1, 5);
 			    HSevSeg_voidDisable(&ss2);
 
-			  delay_ms(1000);
+			//  delay_ms(1000);
      		  //display on 2 7-seg
 			  do {
 			  HSevSeg_voidSetTwoNum(&ss1, &ss2, 89);
