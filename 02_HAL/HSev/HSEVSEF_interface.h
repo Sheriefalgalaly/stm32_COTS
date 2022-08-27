@@ -14,7 +14,7 @@ typedef struct {
 	u8* pins;
 	enum SevSeg_type Common;
 	u8 PortOfCommon;
-	u8 PinOfCommon
+	u8 PinOfCommon;
 }SevSeg_t;
 
 void HSevSeg_voidSetNum(SevSeg_t* Sev,u8 Num);

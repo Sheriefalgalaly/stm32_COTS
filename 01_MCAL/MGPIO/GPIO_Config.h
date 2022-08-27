@@ -1,7 +1,7 @@
 #ifndef  GPIO_CONFIG_H
 #define  GPIO_CONFIG_H
 
-
+//////////////////////////////////////////////////////
 /*******************  MODE***************/
 #define 	Input       0
 #define     GPoutMode   1

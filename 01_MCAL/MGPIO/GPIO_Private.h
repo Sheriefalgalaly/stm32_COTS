@@ -43,9 +43,9 @@ typedef struct {
 	u32 AFRH      ;
 }PORT_t;
 
-#define PORTA_REG    ((volatile PORT_t *) 0x40020000 )
-#define PORTB_REG    ((volatile PORT_t *) 0x40020400 )
-#define PORTC_REG    ((volatile PORT_t *) 0x40020800 )
+#define PORTA_REG    (( PORT_t *) 0x40020000 )
+#define PORTB_REG    (( PORT_t *) 0x40020400 )
+#define PORTC_REG    (( PORT_t *) 0x40020800 )
 
 
 #define PORTA_MODER    M_PORTA_0<<0   | M_PORTA_1<<2  |M_PORTA_2<<4  |M_PORTA_3<<6   | M_PORTA_4<<8   |M_PORTA_5<<10  | M_PORTA_6<<12 |  M_PORTA_7<<14  | M_PORTA_8<<16 |M_PORTA_9<<18 |M_PORTA_10<<20 | M_PORTA_11<<22 |M_PORTA_12<<24 |M_PORTA_15<<30

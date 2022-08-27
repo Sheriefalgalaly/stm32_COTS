@@ -11,9 +11,9 @@
 #define HSI 1
 #define PLL 2
 
-#define SysClk  HSE
+//#define SysClk  HSE
 //#define SysClk  HSI
-//#define SysClk  PLL
+#define SysClk  PLL
 /*****           *****/
 
 /* HSE Clock Source  */

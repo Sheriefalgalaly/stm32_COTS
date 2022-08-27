@@ -76,26 +76,39 @@ void RCC_voidEnablePerClk( u8 Per){
 	CLR_BIT(RCC->CR,HSION); //off HSI
 #endif
 
-		switch (Per){
+		switch (Per /32){
 		/*Peripheral for AHB1*/
-		case GPIO_A: SET_BIT(RCC->AHB1ENR,0); break;
-		case GPIO_B: SET_BIT(RCC->AHB1ENR,1); break;
-		case GPIO_C: SET_BIT(RCC->AHB1ENR,2); break;
+		case AHB1: SET_BIT(RCC->AHB1ENR,Per %32); break;
+		case AHB2: SET_BIT(RCC->AHB2ENR,Per %32); break;
+		case APB1: SET_BIT(RCC->APB1ENR,Per %32); break;
+		case APB2: SET_BIT(RCC->APB2ENR,Per %32); break;
 
-		//followed by  every peripheral implemented
 	}
 
 }
 
 void RCC_voidDisablePerClk(Per_Sel Per){
 
-		switch (Per){
-		/*for AHB1 peripherals*/
-		case GPIO_A :   CLR_BIT(RCC->AHB1ENR,0); break;
-		case GPIO_B :   CLR_BIT(RCC->AHB1ENR,1); break;
-		case GPIO_C :   CLR_BIT(RCC->AHB1ENR,2); break;
-		   // followed , for every peripheral implemented
+	switch (Per /32){
+	/*Peripheral for AHB1*/
+	case AHB1: CLR_BIT(RCC->AHB1ENR,Per %32); break;
+	case AHB2: CLR_BIT(RCC->AHB2ENR,Per %32); break;
+	case APB1: CLR_BIT(RCC->APB1ENR,Per %32); break;
+	case APB2: CLR_BIT(RCC->APB2ENR,Per %32); break;
 
+}
+
+}
+void RCC_voidMCO(u8 MCONum ,u8 SRC ,u8 Pres){
+	switch (MCONum){
+	//PA8
+	  case MCO1: RCC->CFGR |=SRC<<21  ;  //set SRC
+		         RCC->CFGR |= Pres<<24;  //set pres
+		         break;
+    //PC9
+	  case MCO2: RCC->CFGR |=SRC<<30  ;  //set SRC
+                 RCC->CFGR |= Pres<<27;  //set pres
+                 break;
 	}
 
 }
