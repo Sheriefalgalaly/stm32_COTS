@@ -10,6 +10,10 @@
     u32 PUPDR [3] ={PORTA_PUDR,PORTB_PUDR  ,PORTC_PUDR};
 	PORT_t* PORTS[3]={PORTA_REG,PORTB_REG,PORTC_REG};
 
+
+	/*forbidden pins
+	 * B2,3,4
+	 * A13,14,15*/
 void GPIO_INIT(void){
 
 
