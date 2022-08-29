@@ -6,9 +6,9 @@
 /************************************************************************************************/
 
 
-#include "00_LIB/STD_TYPES.h"
-#include "00_LIB/BIT_MATH.h"
-#include "01_MCAL/MGPIO/GPIO_Interface.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "MCAL/MGPIO/GPIO_Interface.h"
 #include "HLCD_Config.h"
 #include "HLCD_Interface.h"
 #include "HLCD_Private.h"

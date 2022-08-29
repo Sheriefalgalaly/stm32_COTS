@@ -9,8 +9,8 @@
 #define HLCD_INTERFACE_H_
 
 
-#include "00_LIB/STD_TYPES.h"
-#include "00_LIB/BIT_MATH.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
 
 typedef struct {
 	u8* DataPort;

@@ -5,9 +5,9 @@
  *      Author: Admin
  */
 
-#include "00_LIB/STD_TYPES.h"
-#include "00_LIB/BIT_MATH.h"
-#include "01_MCAL/MGPIO/GPIO_Interface.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "MCAL/MGPIO/GPIO_Interface.h"
 #include "HLED_interface.h"
 
 void HLED_voidTurnOn(LED_t* LED){

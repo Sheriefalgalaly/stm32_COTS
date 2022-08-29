@@ -4,9 +4,9 @@
  *  Created on: Aug 2, 2022
  *      Author: Admin
  */
-#include "00_LIB/STD_TYPES.h"
-#include "00_LIB/BIT_MATH.h"
-#include "01_MCAL/MGPIO/GPIO_Interface.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "MCAL/MGPIO/GPIO_Interface.h"
 #include "HSEVSEF_interface.h"
 #include "HSEVSEG_private.h"
 void delay(){

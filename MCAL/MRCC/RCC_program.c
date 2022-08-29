@@ -3,8 +3,8 @@
 /*****                          target controller :STM32f401CCU6 *********************************/
 /********************           AUTHOR : Sherief Algalaly ****************************************/
 /************************************************************************************************/ 
-#include "00_LIB/BIT_MATH.h"
-#include "00_LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "LIB/STD_TYPES.h"
 #include "RCC_interface.h"
 #include "RCC_private.h"
 #include "RCC_config.h"

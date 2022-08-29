@@ -5,9 +5,9 @@
  /*****************************  Created on: Jul 30, 2022 ****************************************/
  /******************************        Layer :HAL      ******************************************/
 /***********************************************************************************************/
-#include "00_LIB/STD_TYPES.h"
-#include "00_LIB/BIT_MATH.h"
-#include "01_MCAL/MGPIO/GPIO_Interface.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "MCAL/MGPIO/GPIO_Interface.h"
 #include "KeyPad_Config.h"
 #include "KeyPad_Interface.h"
 #include "KeyPad_Private.h"
