@@ -68,15 +68,21 @@ typedef enum {
 	SPI4
 }IRQ_t;
 
+typedef enum {
+	Group16 =3,
+	Group8_2Sub,
+	Group4_4Sub,
+	Group2_8Sub,
+	Group0_16Sub
+};
 
-
-void NVIC_SetPriorityGrouping(uint32_t priority_grouping); // Set the priority grouping
-void NVIC_EnableIRQ(IRQn_t IRQn);                          // Enable IRQn
-void NVIC_DisableIRQ(IRQn_t IRQn);                         // Disable IRQn
-uint32_t NVIC_GetPendingIRQ (IRQn_t IRQn);                 // Return true (IRQ-Number) if IRQn is pending
-void NVIC_SetPendingIRQ (IRQn_t IRQn);                     // Set IRQn pending
-void NVIC_ClearPendingIRQ (IRQn_t IRQn);                   // Clear IRQn pending status
-uint32_t NVIC_GetActive (IRQn_t IRQn);                     // Return the IRQ number of the active interrupt
-void NVIC_SetPriority (IRQn_t IRQn, uint32_t priority);    // Set priority for IRQn
+void NVIC_SetPriorityGrouping(u32 priority_grouping); // Set the priority grouping
+void NVIC_EnableIRQ( IRQ_t IRQn);                          // Enable IRQn
+void NVIC_DisableIRQ( IRQ_t IRQn);                         // Disable IRQn
+u8 NVIC_GetPendingIRQ ( IRQ_t IRQn);                 // Return true (IRQ-Number) if IRQn is pending
+void NVIC_SetPendingIRQ ( IRQ_t IRQn);                     // Set IRQn pending
+void NVIC_ClearPendingIRQ ( IRQ_t IRQn);                   // Clear IRQn pending status
+u8 NVIC_GetActive ( IRQ_t IRQn);                     // Return the IRQ number of the active interrupt
+void NVIC_SetPriority ( IRQ_t IRQn, u8 Group_priority,u8 Sub_Priority);    // Set priority for IRQn
 
 #endif /* MCAL_MNVIC_MNVIC_INTERFACE_H_ */
