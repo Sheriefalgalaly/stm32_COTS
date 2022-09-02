@@ -162,8 +162,12 @@ u8  GPIO_PINRead(u8 port ,u8 PIN){
 }
 
 void GPIO_voidPinPUDR(u8 port ,u8 PIN,u8 mode){
-
+	PORTS[port]->PUPDR       &= ~(3<< (2*PIN));  //clear bits
 	PORTS[port]->PUPDR       |= mode << (2*PIN);
+}
+
+void GPIO_voidTooglePin(u8 port ,u8 PIN){
+	TOGGLE_BIT(PORTS[port]->ODR,PIN);
 }
 
 

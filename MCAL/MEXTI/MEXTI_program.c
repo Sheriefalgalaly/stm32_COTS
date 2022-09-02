@@ -12,6 +12,8 @@
 #include "MCAL/MEXTI/MEXTI_private.h"
 #include "MCAL/MGPIO/GPIO_Interface.h"
 
+
+
  /*Hardware interrupt selection
 To configure the 23 lines as interrupt sources, use the following procedure:
 • Configure the mask bits of the 23 interrupt lines (EXTI_IMR)
@@ -23,7 +25,7 @@ can be correctly acknowledged.*/
 
 /*******************************global variables *******************************/
 /*global array of function void void*/
-static void (*FunctionCallBack[12])(void)={NULL};
+static void (*FunctionCallBack[12])(EXTI_Config_t*)={NULL};
 /*global array of integer for EXTI5->9*/
 static u8* priorities5_9;
 /*global array of pointer to EXTI_Config_t struct*/
@@ -87,26 +89,32 @@ void MEXTI_voidSetTrigger_Sense(EXTI_Config_t* Local_stuct){
 }
 void MEXTI_voidToggleTrigger_Sense (EXTI_Config_t* Local_stuct){
     //toogle trigger
-	if (Local_stuct->Trigger_Sense != Rising_edge)
-	{	MEXTI->RSTR |= 1  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
+	if (Local_stuct->Trigger_Sense == Falling_edge)
+	{	MEXTI->FSTR &= ~(1  << Local_stuct->Line);  //clear falling
+		MEXTI->RSTR |= 1  << Local_stuct->Line;     //selected rising
 		/*make sure of mode of pin is Pull_up*/
-      GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_up);
-      /*Update the trigger sense*/
+        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_down);
+
+		/*Update the trigger sense*/
       Local_stuct->Trigger_Sense =Rising_edge;
 	}
-	else if (Local_stuct->Trigger_Sense != Falling_edge)
-	{	MEXTI->FSTR |= 1 << Local_stuct->Line;  //selected rising if Falling_Rising ==1
+	else if (Local_stuct->Trigger_Sense == Rising_edge)
+	{
+		MEXTI->RSTR &= ~(1  << Local_stuct->Line);  //clear rising
+		MEXTI->FSTR |=  1  << Local_stuct->Line;     //selected falling
     	/*make sure of mode of pin is Pull_down*/
-        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_down);
-        /*Update the trigger sense*/
+        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_up);
+
+		/*Update the trigger sense*/
         Local_stuct->Trigger_Sense =Falling_edge;
 	}
 }
            /***Function call back to store pointer of function on global array ***/
-void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(void )){
+void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(EXTI_Config_t )){
 	/*chech pointer value */
 
 		FunctionCallBack[LocalStruct->Line]=ptr;
+		StructArray[LocalStruct->Line] =LocalStruct;
 
 }
           /***Set priority of ETI9_5 *****/
@@ -123,35 +131,35 @@ void MEXTI_voidSetPrioritiesOfEXTI9_5(u8* ptr){
 /*******EXTI0***************/
 
 void EXTI0_IRQHandler (void){
-	FunctionCallBack[0]();
+	FunctionCallBack[0](StructArray[0]);
 	MEXTI->PR |= ( 1<< 0);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI1***************/
 
 void EXTI1_IRQHandler (void){
-	FunctionCallBack[1]();
+	FunctionCallBack[1](StructArray[1]);
 	MEXTI->PR |= ( 1<< 1);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI2***************/
 
 void EXTI2_IRQHandler (void){
-	FunctionCallBack[2]();
+	FunctionCallBack[2](StructArray[2]);
 	MEXTI->PR |= ( 1<< 2);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI3***************/
 
 void EXTI3_IRQHandler (void){
-	FunctionCallBack[3]();
+	FunctionCallBack[3](StructArray[3]);
 	MEXTI->PR |= ( 1<< 3);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI4***************/
 
 void EXTI4_IRQHandler (void){
-	FunctionCallBack[4]();
+	FunctionCallBack[4](StructArray[4]);
 	MEXTI->PR |= ( 1<< 4);  //CLEAR PENDING FLAG
 }
 
@@ -165,7 +173,7 @@ void EXTI9_5_IRQHandler (void)
 	{
 		if (GET_BIT(MEXTI->PR,priorities5_9[i])==1)    //priorities5_9[i] :to access i-th priority of user in this EXTI
 		{
-			FunctionCallBack[priorities5_9[i]]();
+			FunctionCallBack[priorities5_9[i]](StructArray[i]);
 			MEXTI->PR |= ( 1<< priorities5_9[i]);  //CLEAR PENDING FLAG
 		}
 	}
@@ -174,41 +182,41 @@ void EXTI9_5_IRQHandler (void)
 /*******EXTI10***************/
 
 void EXTI10_IRQHandler (void){
-	FunctionCallBack[10]();
+	FunctionCallBack[10](StructArray[10]);
 	MEXTI->PR |= ( 1<< 10);   //CLEAR PENDING FLAG
 }
 
 /*******EXTI11***************/
 
 void EXTI11_IRQHandler (void){
-	FunctionCallBack[11]();
+	FunctionCallBack[11](StructArray[11]);
 	MEXTI->PR |= ( 1<< 11);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI12***************/
 
 void EXTI12_IRQHandler (void){
-	FunctionCallBack[12]();
+	FunctionCallBack[12](StructArray[12]);
 	MEXTI->PR |= ( 1<< 12);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI13***************/
 
 void EXTI13_IRQHandler (void){
-	FunctionCallBack[13]();
+	FunctionCallBack[13](StructArray[13]);
 	MEXTI->PR |= ( 1<< 13);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI14***************/
 
 void EXTI14_IRQHandler (void){
-	FunctionCallBack[14]();
+	FunctionCallBack[14](StructArray[14]);
 	MEXTI->PR |= ( 1<< 14);  //CLEAR PENDING FLAG
 }
 
 /*******EXTI15***************/
 
 void EXTI15_IRQHandler (void){
-	FunctionCallBack[15]();
+	FunctionCallBack[15](StructArray[15]);
 	MEXTI->PR |= ( 1<< 15);  //CLEAR PENDING FLAG
 }

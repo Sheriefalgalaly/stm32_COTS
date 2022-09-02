@@ -52,7 +52,7 @@ void MEXTI_voidDisableLine(EXTI_Config_t*);
 void MEXTI_voidSETSoftwaretrigger(EXTI_Config_t*);
 void MEXTI_voidRESETSoftwaretrigger(EXTI_Config_t*);
 void MEXTI_voidSetTrigger_Sense(EXTI_Config_t*);
-void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(void));
+void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(EXTI_Config_t ));
 void MEXTI_voidSetPrioritiesOfEXTI9_5(u8*);    // pass array of u8 , ex for array u8 array[5]={8,9,5,6,7};
 void MEXTI_voidToggleTrigger_Sense (EXTI_Config_t* Local_stuct);
 
