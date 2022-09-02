@@ -161,6 +161,10 @@ u8  GPIO_PINRead(u8 port ,u8 PIN){
 
 }
 
+void GPIO_voidPinPUDR(u8 port ,u8 PIN,u8 mode){
+
+	PORTS[port]->PUPDR       |= mode << (2*PIN);
+}
 
 
 

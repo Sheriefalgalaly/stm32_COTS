@@ -31,6 +31,7 @@ PORTB    ,
 PORTC   };
 
 
+
 void GPIO_INIT(void);
 void GPIO_PINWrite_High(u8 port,u8 PIN); //write in
 void GPIO_PINSWrite_LOW(u8 port,u8 PIN); //write in, multiple pin ORing in same fun
@@ -38,8 +39,7 @@ void GPIO_PINReSET(u8 port,u8 PIN);//used register to access more quick
 void GPIO_PINSET(u8 port,u8 PINS);//used register to access more quick
 u16  GPIO_PINSRead(u8 port ,u16 PINS); //read specific one pin or multiple pins regardless in arrange
 u8   GPIO_PINRead(u8 port ,u8 PIN);    //read input
-
-
+void GPIO_voidPinPUDR(u8 port ,u8 PIN,u8 mode); //made for EXTI driver
 
 
 

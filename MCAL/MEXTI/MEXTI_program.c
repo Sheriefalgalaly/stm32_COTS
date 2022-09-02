@@ -10,6 +10,8 @@
 #include "MCAL/MEXTI/MEXTI_interface.h"
 #include "MCAL/MEXTI/MEXTI_config.h"
 #include "MCAL/MEXTI/MEXTI_private.h"
+#include "MCAL/MGPIO/GPIO_Interface.h"
+
  /*Hardware interrupt selection
 To configure the 23 lines as interrupt sources, use the following procedure:
 • Configure the mask bits of the 23 interrupt lines (EXTI_IMR)
@@ -19,56 +21,95 @@ external interrupt controller (EXTI) so that an interrupt coming from one of the
 can be correctly acknowledged.*/
  //void* FunctionCallBack[23]={NULL};
 
-
+/*******************************global variables *******************************/
 /*global array of function void void*/
 static void (*FunctionCallBack[12])(void)={NULL};
 /*global array of integer for EXTI5->9*/
 static u8* priorities5_9;
+/*global array of pointer to EXTI_Config_t struct*/
+static EXTI_Config_t* StructArray[16];
+
+/********************************Functions *************************************/
+                  /**** Enable EXTI ***********/
 void MEXTI_voidInit(void){
 	MEXTI->IMR = 0 ;         //Reset Register
 	MEXTI->PR = 0xffffffff; //reset flag register
 
 }
+                 /**** Enable Line ***********/
 void MEXTI_voidEnableLine(EXTI_Config_t* Local_stuct){
 	// make union to make registers of struct shared same memory with the array to access registers iterative.
     ( SYSCFG_UNion_Struct->SYSArr[(Local_stuct->Line) / 4] ) |=  Local_stuct->Port   <<((Local_stuct->Line) % 4)*4;
 	//select the line
 	SET_BIT(MEXTI->IMR, Local_stuct->Line);
     //select trigger
-	MEXTI->RSTR |= Local_stuct->Trigger_Rising  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
-	MEXTI->FSTR |= Local_stuct->Trigger_Falling << Local_stuct->Line;  //selected rising if Falling_Rising ==1
-
-
+	if (Local_stuct->Trigger_Sense == Rising_edge)
+	{	MEXTI->RSTR |= 1  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
+		/*make sure of mode of pin is Pull_up*/
+      GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_down);
+	}
+	else if (Local_stuct->Trigger_Sense == Falling_edge)
+	{	MEXTI->FSTR |= 1 << Local_stuct->Line;  //selected rising if Falling_Rising ==1
+    	/*make sure of mode of pin is Pull_down*/
+        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_up);
+	}
 }
+                 /**** Disable Line ***********/
 void MEXTI_voidDisableLine(EXTI_Config_t* Local_stuct){
 	//select the line
 	CLR_BIT(MEXTI->IMR, Local_stuct->Line);
 }
+                /***software trigger **********/
 void MEXTI_voidSETSoftwaretrigger(EXTI_Config_t* Local_stuct){
 
 	//set the pending flag
 	MEXTI->SWIER = 1<< Local_stuct->Line ;
 }
+
+            /***reset software trigger **********/
 void MEXTI_voidRESETSoftwaretrigger(EXTI_Config_t* Local_stuct){
 	//clear the pending flag
 	MEXTI->PR &= ~( 1<< Local_stuct->Line) ;
 }
-void MEXTI_voidSetTrigger(EXTI_Config_t* Local_stuct){
+           /***change trigger *******************/
+void MEXTI_voidSetTrigger_Sense(EXTI_Config_t* Local_stuct){
     //select trigger
-	MEXTI->RSTR |= Local_stuct->Trigger_Rising  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
-	MEXTI->FSTR |= Local_stuct->Trigger_Falling << Local_stuct->Line;  //selected rising if Falling_Rising ==1
-
+	if (Local_stuct->Trigger_Sense == Rising_edge)
+	{	MEXTI->RSTR |= 1  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
+		/*make sure of mode of pin is Pull_up*/
+      GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_up);
+	}
+	else if (Local_stuct->Trigger_Sense == Falling_edge)
+	{	MEXTI->FSTR |= 1 << Local_stuct->Line;  //selected rising if Falling_Rising ==1
+    	/*make sure of mode of pin is Pull_down*/
+        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_down);
+	}
 }
-
-void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(void)){
+void MEXTI_voidToggleTrigger_Sense (EXTI_Config_t* Local_stuct){
+    //toogle trigger
+	if (Local_stuct->Trigger_Sense != Rising_edge)
+	{	MEXTI->RSTR |= 1  << Local_stuct->Line;  //selected rising if Trigger_Rising ==1
+		/*make sure of mode of pin is Pull_up*/
+      GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_up);
+      /*Update the trigger sense*/
+      Local_stuct->Trigger_Sense =Rising_edge;
+	}
+	else if (Local_stuct->Trigger_Sense != Falling_edge)
+	{	MEXTI->FSTR |= 1 << Local_stuct->Line;  //selected rising if Falling_Rising ==1
+    	/*make sure of mode of pin is Pull_down*/
+        GPIO_voidPinPUDR(Local_stuct->Port, Local_stuct->Line, Pull_down);
+        /*Update the trigger sense*/
+        Local_stuct->Trigger_Sense =Falling_edge;
+	}
+}
+           /***Function call back to store pointer of function on global array ***/
+void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(void )){
 	/*chech pointer value */
-	if (ptr != 0){
+
 		FunctionCallBack[LocalStruct->Line]=ptr;
-	}
-	else {
-     /*nothing*/
-	}
+
 }
+          /***Set priority of ETI9_5 *****/
 void MEXTI_voidSetPrioritiesOfEXTI9_5(u8* ptr){
 	/*save this pointer of array to global static pointer*/
 	if (ptr != NULL)
@@ -77,6 +118,7 @@ void MEXTI_voidSetPrioritiesOfEXTI9_5(u8* ptr){
 	}
 
 }
+
 /*********************************** IRQ HANDLER ***************************************************/
 /*******EXTI0***************/
 

@@ -10,6 +10,7 @@
 #include "MCAL/MNVIC/MNVIC_interface.h"
 #include "MCAL/MNVIC/MNVIC_config.h"
 #include "MCAL/MNVIC/MNVIC_private.h"
+
 /*Global var*/
 static u8 GlobalPriorityGroup =0;
 

@@ -9,16 +9,15 @@
 #ifndef MCAL_MEXTI_MEXTI_INTERFACE_H_
 #define MCAL_MEXTI_MEXTI_INTERFACE_H_
 
-typedef struct{
+typedef struct{  // make sure ti make input this pin in gpio config
 	u8 Line;
 	u8 Port;
-	u8 Trigger_Rising;
-	u8 Trigger_Falling;
+	u8 Trigger_Sense;
 }EXTI_Config_t;
 
 typedef enum {
-	Disable_EXTI,
-	Enable_EXTI
+	Rising_edge,
+	Falling_edge
 }Enabling_Line;
 
 typedef enum {
@@ -52,8 +51,9 @@ void MEXTI_voidEnableLine(EXTI_Config_t*);
 void MEXTI_voidDisableLine(EXTI_Config_t*);
 void MEXTI_voidSETSoftwaretrigger(EXTI_Config_t*);
 void MEXTI_voidRESETSoftwaretrigger(EXTI_Config_t*);
-void MEXTI_voidSetTrigger(EXTI_Config_t*);
-void MEXTI_voidSetCallBack(EXTI_Config_t*,void (*ptr)(void));
+void MEXTI_voidSetTrigger_Sense(EXTI_Config_t*);
+void MEXTI_voidSetCallBack(EXTI_Config_t* LocalStruct,void (*ptr)(void));
 void MEXTI_voidSetPrioritiesOfEXTI9_5(u8*);    // pass array of u8 , ex for array u8 array[5]={8,9,5,6,7};
+void MEXTI_voidToggleTrigger_Sense (EXTI_Config_t* Local_stuct);
 
 #endif /* MCAL_MEXTI_MEXTI_INTERFACE_H_ */
