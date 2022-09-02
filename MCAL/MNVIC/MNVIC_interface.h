@@ -74,7 +74,7 @@ typedef enum {
 	Group4_4Sub,
 	Group2_8Sub,
 	Group0_16Sub
-};
+}Grouping_MNVIC;
 
 void NVIC_SetPriorityGrouping(u32 priority_grouping); // Set the priority grouping
 void NVIC_EnableIRQ( IRQ_t IRQn);                          // Enable IRQn
