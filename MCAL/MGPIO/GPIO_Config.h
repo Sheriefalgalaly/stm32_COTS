@@ -26,9 +26,9 @@
 
 /**********************  PORT A *************************/
  /* PORT A Mode */
-#define M_PORTA_0     GPoutMode
+#define M_PORTA_0     Input
 #define M_PORTA_1     GPoutMode
-#define M_PORTA_2     Input
+#define M_PORTA_2     GPoutMode
 #define M_PORTA_3     GPoutMode
 #define M_PORTA_4     GPoutMode
 #define M_PORTA_5     Input
@@ -42,7 +42,7 @@
 #define M_PORTA_15    GPoutMode
 /*PORT A Mode */
 #define T_PORTA_0     OUT_OPENDRAIN
-#define T_PORTA_1     OUT_OPENDRAIN
+#define T_PORTA_1     OUT_PUSHPULL
 #define T_PORTA_2     OUT_PUSHPULL
 #define T_PORTA_3     OUT_PUSHPULL
 #define T_PORTA_4     OUT_PUSHPULL
@@ -72,7 +72,7 @@
 #define S_PORTA_12      Medium_S
 #define S_PORTA_15      Medium_S
 /* PORT A pullup-down */
-#define P_PORTA_0       NOPullup_down
+#define P_PORTA_0       Pull_up
 #define P_PORTA_1       NOPullup_down
 #define P_PORTA_2       Pull_up
 #define P_PORTA_3       NOPullup_down

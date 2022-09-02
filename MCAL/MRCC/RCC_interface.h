@@ -6,43 +6,43 @@
 #ifndef  RCC_INTERFACE_H
 #define  RCC_INTERFACE_H
 
-
+#include "LIB/STD_TYPES.h"
 // create enum for peripherals ,to use directly without writing the the bus
 typedef enum{
 	/*AHB1ENR */
-	GPIO_A,
-	GPIO_B,
-	GPIO_C,
-	CCRC =12,
-	DMA1 =21,
-	DMA2 ,
+	RCC_GPIO_A,
+	RCC_GPIO_B,
+	RCC_GPIO_C,
+	RCC_CCRC =12,
+	RCC_DMA1 =21,
+	RCC_DMA2 ,
 	/*AHB2ENR */
-	OTG =39,
+	RCC_OTG =39,
 	/*APB1ENR*/
-	TIM2 =64,
-	TIM3 ,
-	TIM4,
-	TIM5,
-	WWDG =107,
-	SPI2 =TIM2+14,
-	SPI3,
-	UART2 =TIM2 +17,
-	I2C1 =TIM2 +21,
-	I2C2,
-	I2C3,
-	PWR =TIM2 +28,
+	RCC_TIM2 =64,
+	RCC_TIM3 ,
+	RCC_TIM4,
+	RCC_TIM5,
+	RCC_WWDG =107,
+	RCC_SPI2 =RCC_TIM2+14,
+	RCC_SPI3,
+	RCC_UART2 =RCC_TIM2 +17,
+	RCC_I2C1 =RCC_TIM2 +21,
+	RCC_I2C2,
+	RCC_I2C3,
+	RCC_PWR =RCC_TIM2 +28,
 	/*APB2ENR*/
-	TIM1=96,
-	UART1 = TIM1 +4,
-	UART6 ,
-	ADC1 =TIM1 +8,
-	SDIO =TIM1 +11,
-	SPI1 ,
-	SPI4 ,
-	SYSCF ,
-	TIM9 =TIM1+16,
-	TIM10,
-	TIM11
+	RCC_TIM1=96,
+	RCC_UART1 = RCC_TIM1 +4,
+	RCC_UART6 ,
+	RCC_ADC1 =RCC_TIM1 +8,
+	RCC_SDIO =RCC_TIM1 +11,
+	RCC_SPI1 ,
+	RCC_SPI4 ,
+	RCC_SYSCF ,
+	RCC_TIM9 =RCC_TIM1+16,
+	RCC_TIM10,
+	RCC_TIM11
    // for each driver created ,you must add it here
 }Per_Sel;
 
