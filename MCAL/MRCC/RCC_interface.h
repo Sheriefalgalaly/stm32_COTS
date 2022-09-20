@@ -70,9 +70,19 @@ typedef enum {
 	LSE,
 	HSE,
 	PLL,
+	PLL_HSE,
+	PLL_HSI,
 	SYSCLK=0,
 	PLLI2s
 }SrcMCO_t;
+
+typedef struct {
+
+	u8 CLKSRC;
+	u8 MegaHertz;
+	u8 AHB_pres;
+	u8 PLL_SRC ;
+}RCC_Data;
 void RCC_voidSysClkInit(void);
 
 void RCC_voidEnablePerClk( u8 Per);
@@ -80,6 +90,8 @@ void RCC_voidEnablePerClk( u8 Per);
 void RCC_voidDisablePerClk(Per_Sel Per);
 
 void RCC_voidMCO(u8 MCONum ,u8 SRC ,u8 Pres);
+
+RCC_Data* RCC_ptrRCC_Data(void);    //this function back struct has data about rcc (clksrc-megahertz)
 
 #endif
 

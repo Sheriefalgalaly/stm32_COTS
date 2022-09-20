@@ -50,7 +50,23 @@ u32    DCKCFGR        ;
 
 }RCC_t;
 
+typedef enum{
+	AHBNopres=1,
+	AHBPres_2 =4,
+	AHBPres_4,
+	AHBPres_8,
+	AHBPres_16
 
+}AHB_pres;
+
+typedef enum {
+	SystemClk_no=1,
+	SystemClk_2 =8,
+	SystemClk_4,
+	SystemClk_8,
+	SystemClk_16,
+	SystemClk_64 //...
+}System_pres_t;
 #define    RCC_BASE_ADD             0x40023800
 #define    RCC               ((volatile RCC_t*)RCC_BASE_ADD)
 
@@ -58,14 +74,49 @@ u32    DCKCFGR        ;
    /*RCC-CR*/
 
 #define HSE_ON     16
+#define HSE_RDY    17
 #define HSE_BYP    18
 #define HSION      0
-#define PLLON      25
+#define HSI_RDY    1
+#define PLLON      24
 #define CSSON      19
 
    #define SW0     0
    #define SW1     1
-
+#define SYSCFGEN   14
+#define PWREN      28
 
 #endif
+/* MCAL_MSYSTICK_MSYSTICK_PRIVATE_H_ */
+/**___________________________________________________________________*
+ * __________________________config of stm32 for pll _________________*
+ * ___________________________________________________________________*
+ * to turn on pll
+
+14 SYSCFGEN: System configuration controller clock enable  -->APB2ENR
+28 PWREN: Power interface clock enable                     --> APB1ENR
+
+HSE ON
+Wait until HSE is ready
+
+write PLL parameters
+
+        WRITE_REG(RCC->PLLCFGR, (RCC_OscInitStruct->PLL.PLLSource                                            | \
+                                 RCC_OscInitStruct->PLL.PLLM                                                 | \
+                                 (RCC_OscInitStruct->PLL.PLLN << RCC_PLLCFGR_PLLN_Pos)             | \
+                                 (((RCC_OscInitStruct->PLL.PLLP >> 1U) - 1U) << RCC_PLLCFGR_PLLP_Pos) | \
+                                 (RCC_OscInitStruct->PLL.PLLQ << RCC_PLLCFGR_PLLQ_Pos)));
+
+
+#define WRITE_REG(REG, VAL)   ((REG) = (VAL))
+
+pres1 cfgr = 7  //divided by 16
+pres2 cfgr = 7  //divided by 16
+
+select pll as sys clk
+
+pres1   = 4
+pres2   =0
+ *
+ */
 

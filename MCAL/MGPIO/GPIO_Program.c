@@ -109,7 +109,7 @@ void GPIO_PINWrite_LOW(u8 port,u8 PINS){ //write in multiple pin in same fun
 
 
 
-
+/*
 u16 GPIO_whichPINs(u8 inputRegister , u16 PINS){  //return bits shifted right if bit 5 ,10 input ,,convert it to two bits at LSB to be 00,01,10,11
 	u8 index =0;
 	u8 pins[16];   //create array to fill indexes of pins
@@ -149,7 +149,7 @@ u16  GPIO_PINSRead(u8 port ,u16 PINS){    //return read value from pin or pins
    case PORTC : return GPIO_whichPINs(PORTC,PINS);     break; //calling function to return the value of register of pins we need to read
    }
 }
-
+*/
 u8  GPIO_PINRead(u8 port ,u8 PIN){
 	  switch(port)
 	  {

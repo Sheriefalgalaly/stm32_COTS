@@ -12,7 +12,7 @@ enum LEDState_t {AtciveHigh,ActiveLow};
 typedef struct {
 	u8 Pin ;
 	u8 Port;
-	enum LEDState_t state;
+	enum LEDState_t state;  //ACTIVEHIGH-LOW
 }LED_t;
 
 void HLED_voidTurnOn(LED_t* LED);
